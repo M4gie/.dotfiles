@@ -1,0 +1,25 @@
+   [color]
+       ui = auto
+   [core]
+       excludesfile = ~/.gitignore
+       autocrlf = input
+       editor = 'vim'
+   [push]
+       default = upstream
+   [alias]
+       st = status
+       co = checkout
+       ci = commit
+       br = branch
+       pullr = pull --rebase
+       dif = diff --ignore-space-change
+       tree = log --graph --oneline --all --pretty=format:'%C(yellow)%h%Creset -%Cred%d%Creset %s %Cgreen%cr%Creset %C(cyan)<%an>%Creset'
+       full = log --all --graph --color --name-status --format='%C(yellow)%h%Creset %cr %C(red)%cn%Creset -%C(auto)%d%Creset %s'
+
+       # View abbreviated SHA, description, and history graph of the latest 20 commits.
+	   l = log --pretty=oneline -n 20 --graph --abbrev-commit
+
+       # Show the user email for the current repository.
+	   whoami = config user.email
+   [pull]
+       rebase = true
