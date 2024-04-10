@@ -2,8 +2,8 @@
 
 # Shortcuts
 alias dl="cd ~/Downloads"
-alias work="cd ~/delivery-w"
-alias perso="cd ~/delivery-p"
+alias work="cd ~/wDelivery"
+alias perso="cd ~/pDelivery"
 
 # IP addresses
 alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
