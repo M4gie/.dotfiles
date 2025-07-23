@@ -17,3 +17,6 @@ alias path='echo -e ${PATH//:/\\n}'
 alias p="pnpm"
 alias y="yarn"
 alias n="npm"
+alias clean-modules="find . -name 'node_modules' -type d -prune -exec rm -rf '{}' +"
+
+alias refresh="source ~/.zshrc"
