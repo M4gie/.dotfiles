@@ -1,9 +1,14 @@
+tap "hashicorp/tap"
+
+brew "hashicorp/tap/vault" 
 brew "nano"
 brew "jq"
 brew "python"
 brew "volta"
 brew "git"
 brew "dockutil"
+brew "docker-compose"
+
 
 cask "font-fira-code"
 cask "slack"
@@ -15,3 +20,5 @@ cask "vlc"
 cask "obsidian"
 cask "vivaldi"
 cask "visual-studio-code"
+cask "telegram"
+cask "docker-desktop"

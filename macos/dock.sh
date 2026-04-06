@@ -15,6 +15,7 @@ add_to_dock() {
 dockutil --no-restart --remove all
 add_to_dock "/Applications/Slack.app"
 add_to_dock "/Applications/Discord.app"
+add_to_dock "/Applications/Telegram.app"
 add_to_dock "/Applications/Proton Pass.app"
 add_to_dock "/Applications/Vivaldi.app"
 add_to_dock "/System/Applications/Calendar.app"

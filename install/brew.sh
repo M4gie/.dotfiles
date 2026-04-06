@@ -21,3 +21,4 @@ brew bundle --file="$BREWFILE"
 
 echo "Installing Node.js LTS with Volta..."
 volta install node@lts
+volta install npm

@@ -4,6 +4,7 @@ ZSH_THEME="robbyrussell"
 
 plugins=(git)
 
+export PATH="$HOME/.local/bin:$PATH"
+
 source $ZSH/oh-my-zsh.sh
 source ~/.dotfiles/.profile
-export PATH="$HOME/.local/bin:$PATH"
