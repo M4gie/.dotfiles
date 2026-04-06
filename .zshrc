@@ -6,3 +6,4 @@ plugins=(git)
 
 source $ZSH/oh-my-zsh.sh
 source ~/.dotfiles/.profile
+export PATH="$HOME/.local/bin:$PATH"

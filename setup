@@ -1,4 +1,40 @@
 #!/usr/bin/env bash
 
-ln -s ~/.dotfiles/.gitconfig ~
-ln -s ~/.dotfiles/.zshrc ~
+set -euo pipefail
+
+DOTFILES_DIR="$(cd "$(dirname "$0")" && pwd)"
+
+symlink_file() {
+	local source_file="$1"
+	local target_file="$2"
+
+	if [ -L "$target_file" ] && [ "$(readlink "$target_file")" = "$source_file" ]; then
+		return
+	fi
+
+	if [ -e "$target_file" ] && [ ! -L "$target_file" ]; then
+		local backup_file="${target_file}.backup.$(date +%Y%m%d%H%M%S)"
+		mv "$target_file" "$backup_file"
+		echo "Backed up $target_file to $backup_file"
+	fi
+
+	ln -snf "$source_file" "$target_file"
+}
+
+echo "Installing Oh My Zsh..."
+bash "$DOTFILES_DIR/install/oh-my-zsh.sh"
+
+echo "Symlinking shell and git configs..."
+symlink_file "$DOTFILES_DIR/.gitconfig" "$HOME/.gitconfig"
+symlink_file "$DOTFILES_DIR/.zshrc" "$HOME/.zshrc"
+
+echo "Installing Homebrew packages..."
+bash "$DOTFILES_DIR/install/brew.sh"
+
+echo "Applying macOS defaults..."
+bash "$DOTFILES_DIR/macos/defaults.sh"
+
+echo "Applying Dock layout..."
+bash "$DOTFILES_DIR/macos/dock.sh"
+
+echo "Done. Restart Terminal and log out/in for all settings to fully apply."
