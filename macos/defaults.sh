@@ -4,8 +4,9 @@ set -euo pipefail
 
 COMPUTER_NAME="Maji"
 LANGUAGES=(en fr)
-LOCALE="en_US@currency=EUR"
+LOCALE="en_US@currency=EUR;fw=mon"
 MEASUREMENT_UNITS="Centimeters"
+TEMPERATURE_UNIT="Celsius"
 SCREENSHOTS_FOLDER="${HOME}/Screenshots"
 
 write_optional_default() {
@@ -24,7 +25,9 @@ echo "Applying language and locale settings..."
 defaults write NSGlobalDomain AppleLanguages -array "${LANGUAGES[@]}"
 defaults write NSGlobalDomain AppleLocale -string "$LOCALE"
 defaults write NSGlobalDomain AppleMeasurementUnits -string "$MEASUREMENT_UNITS"
+defaults write NSGlobalDomain AppleTemperatureUnit -string "$TEMPERATURE_UNIT"
 defaults write NSGlobalDomain AppleMetricUnits -bool true
+defaults write NSGlobalDomain AppleFirstWeekday -dict gregorian 2
 
 echo "Configuring menu bar and save behavior..."
 defaults write com.apple.menuextra.battery ShowPercent -string "YES"
@@ -48,18 +51,17 @@ defaults write com.apple.dock autohide-delay -float 0
 defaults write com.apple.dock show-recents -bool false
 
 echo "Setting calendar week start to Monday..."
-defaults write com.apple.iCal "first day of week" -int 1
+defaults write com.apple.iCal "first day of week" -int 2
 
-echo "Disabling Safari password manager prompts and autofill..."
-write_optional_default com.apple.Safari AutoFillPasswords -bool false
-write_optional_default com.apple.Safari PasswordBreachDetectionOn -bool false
-write_optional_default com.apple.Safari AutoFillFromAddressBook -bool false
-write_optional_default com.apple.Safari AutoFillCreditCardData -bool false
-write_optional_default com.apple.Safari AutoFillMiscellaneousForms -bool false
-write_optional_default com.apple.Safari AutoFillWebForms -bool false
+###############################################################################
+# Kill affected applications                                                  #
+###############################################################################
 
-killall Dock >/dev/null 2>&1 || true
-killall SystemUIServer >/dev/null 2>&1 || true
-killall Finder >/dev/null 2>&1 || true
+apps=("Activity Monitor" "Calendar" "Contacts" "Dock" "Finder" "Messages" "Photos" "Safari" "SystemUIServer" "Terminal" "iCal" "Weather" "System Preferences" "System Settings")
+for app in "${apps[@]}"; do
+	killall "${app}" &> /dev/null || true
+done
+
+killall cfprefsd &> /dev/null || true
 
 echo "macOS defaults applied."
